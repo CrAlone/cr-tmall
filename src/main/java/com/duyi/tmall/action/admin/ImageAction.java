@@ -132,6 +132,10 @@ public class ImageAction extends ActionSupport {
                 image.setType(Image.Type.DETAIL);
         }
         baseImageService.add(image);
+
+
+
+
         return "add";
     }
 }
