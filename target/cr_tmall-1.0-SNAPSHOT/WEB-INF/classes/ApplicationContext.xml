@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <!--开启自动扫描-->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.duyi.tmall"/>
+    <!--加载外部配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--开启自动扫描-->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.duyi.tmall"/>
+    <!--加载外部配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--发送邮件-->
+    <bean id="send" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.qq.com"></property>
+        <property name="username" value="1071954519@qq.com"></property>
+        <property name="password" value="ltlrwjnxzmqxbdab"></property>
+        <property name="defaultEncoding" value="utf-8"></property>
+    </bean>
+    <!--配置druid的数据库连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--        连接池的属性-->
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="filters" value="${jdbc.filters}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+        <property name="validationQuery" value="${jdbc.validationQuery}"/>
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}"/>
+        <property name="testOnReturn" value="${jdbc.testOnReturn}"/>
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${jdbc.maxPoolPreparedStatementPerConnectionSize}"/>
+    </bean>
+
+
+    <!--LocalSessionFactoryBean加载配置文件-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--        配置hibernate包扫描-->
+        <property name="packagesToScan">
+            <value>com.duyi.tmall</value>
+        </property>
+
+        <!--        hibernate的属性配置-->
+        <property name="hibernateProperties">
+            <props>
+                <!--                使用的存储引擎-->
+                <!--                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
+                <prop key="hibernate.dialect.storage_engine">innodb</prop>
+                <!--                sql显示-->
+                <prop key="hibernate.show_sql">true</prop>
+                <!--                自动建表的配置-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--                sql语句的格式化-->
+                <prop key="format_sql">true</prop>
+            </props>
+
+        </property>
+
+    </bean>
+
+    <!--配置声明式的事务管理，采用注解-->
+    <bean id="transactionManage" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManage" proxy-target-class="true"/>
+
+
+</beans>
