@@ -7,8 +7,8 @@
   <display-name>cr-tamll</display-name>
   <!--    默认显示主页-->
   <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
   <!--    解决延迟加载的问题-->

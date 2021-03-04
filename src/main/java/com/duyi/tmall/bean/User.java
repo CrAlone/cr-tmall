@@ -17,6 +17,9 @@ public class User implements Serializable {
     /**
      * 用户id
      */
+    public User(){
+        email = "";
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,6 +35,8 @@ public class User implements Serializable {
      * 用户密码
      */
     private String password;
+    @Transient
+    private int verify;
     /**
      * 用户组
      */
@@ -52,6 +57,8 @@ public class User implements Serializable {
      * ORDINARY 普通成员
      */
     public enum Gro {
+        //两种身份 MANAGE管理员
+        //ORDINARY 普通成员
         MANAGE,ORDINARY
     }
 }

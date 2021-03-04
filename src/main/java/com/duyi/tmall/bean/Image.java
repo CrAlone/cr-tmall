@@ -2,8 +2,8 @@ package com.duyi.tmall.bean;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author 商品图片
@@ -41,6 +41,9 @@ public class Image {
     @Enumerated(EnumType.STRING)
     private Type type;
     public enum Type{
+        //TOP 头部图片 ,DETAIL详细图片，COVER封面图片
         TOP,DETAIL,COVER
     }
+
+
 }

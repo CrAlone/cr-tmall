@@ -2,7 +2,7 @@ package com.duyi.tmall.service.base;
 
 import com.duyi.tmall.bean.Image;
 
-import java.util.List;
+
 
 /**
  * @author 商品图片service
@@ -14,10 +14,18 @@ public interface BaseImageService {
      */
     void add(Image image);
 
+
     /**
-     * 根据商品id查询对象的所有图片
-     * @param id 商品id
-     * @return 放回该商品的所有id
+     * 删除一张图片
+     * @param image 对象
      */
-    List<Image> query(int id);
+    void delete(Image image);
+
+    /**
+     * 根据图片id查询图片的内容
+     * @param id 图片id
+     * @return 返回图片信息
+     */
+    Image get(int id);
+
 }

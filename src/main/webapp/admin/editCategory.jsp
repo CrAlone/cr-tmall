@@ -15,7 +15,7 @@
 <%@include file="common/adminNavigator.jsp" %>
 <div class="container" >
     <ol class="breadcrumb">
-        <li><a href="../category/list">所有分类</a></li>
+        <li><a href="/tmall/admin/category/backstage">所有分类</a></li>
         <li>${category.name}</li>
     </ol>
 </div>

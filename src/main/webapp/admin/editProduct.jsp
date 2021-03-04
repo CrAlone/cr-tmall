@@ -17,8 +17,8 @@
 
 <div class="container" >
     <ol class="breadcrumb">
-        <li><a href="/admin/category/backstage">分类管理</a></li>
-        <li><a href="/admin/product/list?category.id=${category.id}">${category.name}</a></li>
+        <li><a href="/tmall/admin/category/backstage">分类管理</a></li>
+        <li><a href="/tmall/admin/product/list?category.id=${category.id}">${category.name}</a></li>
 		<li>${product.name}</li>
     </ol>
 </div>

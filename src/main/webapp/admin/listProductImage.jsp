@@ -16,12 +16,12 @@
 
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="/admin/category/backstage">所有分类</a></li>
-        <li><a href="/admin/product/list?category.id=${category.id}">${category.name}</a></li>
+        <li><a href="/tmall/admin/category/backstage">所有分类</a></li>
+        <li><a href="/tmall/admin/product/list?category.id=${category.id}">${category.name}</a></li>
         <li>${product.name}</li>
         <li>图片管理</li>
     </ol>
-
+    <h3>${category.name}</h3>
     <div class="container" style="width:33.3%;float:left">
         <h4>封面图片</h4>
 
@@ -34,13 +34,14 @@
             </tr>
             </thead>
             <tbody>
+                <c:forEach items="${product.coverList}" var="ti" varStatus="vs">
                 <tr>
-                    <h3>${cover.urlImage}</h3>
-                    <th scope="row">${cover.id}</th>
-                    <td><img src="${cover.urlImage}" height="50px"></td>
-                    <td><a href="delete?productImage.id=${productCoverImage.id}" class="delete-button"><span
+                    <th scope="row">${ti.id}</th>
+                    <td><img src="${ti.urlImage}" height="50px"></td>
+                    <td><a href="delete?image.id=${ti.id}&product.id=${product.id}&category.id=${category.id}" class="delete-button"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
+                </c:forEach>
             </tbody>
         </table>
 
@@ -53,9 +54,12 @@
                         <label for="file3" class="col-sm-4 control-label">图片文件</label>
                         <div class="col-sm-8">
                             <input id="file3" name="imgFile" type="file" class="file">
+                            详细信息:<input type="text" name="image.content"/>
                         </div>
+
                     </div>
                     <input type="hidden" value="${product.id}" name="product.id">
+                    <input type="hidden" value="${category.id}" name="category.id">
                     <input type="hidden" value="1" name="type">
                     <div class="form-group">
                         <div style="text-align: center">
@@ -65,10 +69,10 @@
                 </form>
             </div>
         </div>
-
-
     </div>
+    <script type="text/javascript">
 
+    </script>
     <div class="container" style="width:33.3%;float:left">
         <h4>顶部图片</h4>
 
@@ -81,31 +85,31 @@
             </tr>
             </thead>
             <tbody>
-
-            <c:forEach items="${topList}" var="ti" varStatus="vs">
+            <c:forEach items="${product.topList}" var="ti" varStatus="vs">
                 <tr>
                     <th scope="row">${ti.id}</th>
                     <td><img src="${ti.urlImage}" height="50px"></td>
-                    <td><a href="  delete?product.id=${product.id}&image.id=${ti.id}" class="delete-button"><span
+                    <td><a href="delete?product.id=${product.id}&image.id=${ti.id}&category.id=${category.id}" class="delete-button"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
-
             </c:forEach>
             </tbody>
         </table>
-
         <div class="panel panel-default">
             <div class="panel-heading">新增图片</div>
             <div class="panel-body">
                 <form class="form-horizontal" method="post" id="add-form" action="add"
                       enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="file" class="col-sm-4 control-label">图片文件</label>
+                        <label  for="file" class="col-sm-4 control-label">图片文件</label>
                         <div class="col-sm-8">
-                            <input id="file" name="img" type="file" class="file">
+                            <input id="file" name="imgFile" type="file" class="file">
+                            详细信息:<input type="text" name="image.content"/>
                         </div>
+
                     </div>
                     <input type="hidden" value="${product.id}" name="product.id">
+                    <input type="hidden" value="${category.id}" name="category.id">
                     <input type="hidden" value="2" name="type">
                     <div class="form-group">
                         <div style="text-align: center">
@@ -132,11 +136,11 @@
             </thead>
             <tbody>
 
-            <c:forEach items="${detailList}" var="ti" varStatus="vs">
+            <c:forEach items="${product.detailList}" var="ti" varStatus="vs">
                 <tr>
                     <th scope="row">${ti.id}</th>
                     <td><img src="${ti.urlImage}" height="50px"></td>
-                    <td><a href="delete?productImage.id=${ti.id}" class="delete-button"><span
+                    <td><a href="delete?image.id=${ti.id}&product.id=${product.id}&category.id=${category.id}" class="delete-button"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             </c:forEach>
@@ -151,10 +155,12 @@
                     <div class="form-group">
                         <label for="file2" class="col-sm-4 control-label">图片文件</label>
                         <div class="col-sm-8">
-                            <input id="file2" name="img" type="file" class="file">
+                            <input id="file2" name="imgFile" type="file" class="file">
+                            详细信息:<input type="text" name="image.content"/>
                         </div>
                     </div>
                     <input type="hidden" value="${product.id}" name="product.id">
+                    <input type="hidden" value="${category.id}" name="category.id">
                     <input type="hidden" value="3" name="type">
                     <div class="form-group">
                         <div style="text-align: center">
@@ -164,8 +170,6 @@
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>
 <%@include file="common/adminFooter.jsp" %>

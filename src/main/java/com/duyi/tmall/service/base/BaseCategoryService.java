@@ -3,7 +3,9 @@ package com.duyi.tmall.service.base;
 
 import com.duyi.tmall.bean.Category;
 import com.duyi.tmall.bean.Pagination;
+import com.duyi.tmall.bean.Product;
 
+import java.util.List;
 
 
 /**
@@ -41,4 +43,12 @@ public interface BaseCategoryService {
      * @param category
      */
     void add(Category category);
+
+    /**
+     * 获取所有上分分类
+     * @return
+     */
+    List<Category> list();
+
+
 }

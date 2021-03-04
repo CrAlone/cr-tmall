@@ -21,10 +21,29 @@
                     return flag;
                 }
             });
+            $(form).find("input[type=file]").each(function () {
+                var value = $(this).val();
+                if(value.length===0){
+                    alert("图片不能为空");
+                    $(this).focus();
+                    flag = false;
+                    return flag;
+                }
+            });
             return flag;
         }
         $(function(){
             $("#add-form").submit(function () {
+                if(!checkEmpty(this)){
+                    return false;
+                }
+            });
+            $("#add-form2").submit(function () {
+                if(!checkEmpty(this)){
+                    return false;
+                }
+            });
+            $("#add-form3").submit(function () {
                 if(!checkEmpty(this)){
                     return false;
                 }

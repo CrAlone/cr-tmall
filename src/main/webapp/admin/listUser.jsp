@@ -10,6 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix='fmt' %>
 
 <c:set var="title" value="用户管理"/>
+<
 <%@include file="common/adminHeader.jsp" %>
 <c:set var="light" value="2"/>
 <%@include file="common/adminNavigator.jsp" %>
@@ -18,6 +19,7 @@
 <div class="container" >
     <ol class="breadcrumb">
         <li>用户管理</li>
+        <span style="color: #666666;font-size:10px ">${pagination.num}条结果</span>
     </ol>
     <table class="table table-hover table-striped">
         <thead>
@@ -28,7 +30,7 @@
         </thead>
         <tbody>
 
-        <c:forEach items="${users}" var="u" varStatus="vs">
+        <c:forEach items="${pagination.data}" var="u" varStatus="vs">
             <tr>
                 <th scope="row">${u.id}</th>
                 <td>${u.name}</td>

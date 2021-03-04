@@ -17,7 +17,7 @@
 
 <div class="container" >
     <ol class="breadcrumb">
-        <li><a href="/admin/category/backstage">所有分类</a></li>
+        <li><a href="/tmall/admin/category/backstage">所有分类</a></li>
         <li>${category.name}</li>
         <li>产品管理</li>
     </ol>
@@ -25,7 +25,7 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-<%--            <th scope="col">图片</th>--%>
+
             <th scope="col">产品名称</th>
             <th scope="col">产品小标题</th>
             <th scope="col">原价格</th>
@@ -42,17 +42,17 @@
         <c:forEach items="${pagination.data}" var="p" varStatus="vs">
             <tr>
                 <th scope="row">${p.id}</th>
-<%--                <td><img src="" height="30px"></td>--%>
                 <td>${p.name}</td>
                 <td>${p.subTitle}</td>
                 <td>${p.OPrice}</td>
                 <td>${p.NPrice}</td>
                 <td>${p.stock}</td>
-                <td><a href="image/list?product.id=${p.id}"><span class="glyphicon glyphicon-picture"></span></a></td>
+                <td><a href="image/list?product.id=${p.id}&category.id=${category.id}"><span class="glyphicon glyphicon-picture"></span></a></td>
                 <td><a href="edit?product.id=${p.id}&category.id=${category.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a id="del" href="delete?product.id=${p.id}&product.category.id=${category.id}" class="delete-button"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
         </c:forEach>
+
         </tbody>
     </table>
 </div>

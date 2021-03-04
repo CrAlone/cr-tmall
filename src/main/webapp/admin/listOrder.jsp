@@ -14,10 +14,10 @@
 <c:set var="light" value="3"/>
 <%@include file="common/adminNavigator.jsp" %>
 
-
 <div class="container" >
     <ol class="breadcrumb">
         <li>订单管理</li>
+        <span style="color: #666666;font-size:10px ">${pagination.num}条结果</span>
     </ol>
     <table class="table">
         <thead>
@@ -35,23 +35,23 @@
         </tr>
         </thead>
         <tbody>
-
-        <c:forEach items="${orders}" var="o" varStatus="vs">
+        <c:forEach items="${pagination.data}" var="o" varStatus="vs">
             <tr>
                 <th scope="row">${o.id}</th>
-                <td>${o.statusText}</td>
-                <td>${o.sum}</td>
-                <td>${o.totalNumber}</td>
+                <td>${o.status}</td>
+                <td>${o.orderPrice}</td>
+                <td>${o.orderItemCount}</td>
                 <td>${o.user.name}</td>
-                <td><fmt:formatDate value="${o.createDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                <td><fmt:formatDate value="${o.payDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                <td><fmt:formatDate value="${o.deliverDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                <td><fmt:formatDate value="${o.confirmDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                <td>${o.createTime}</td>
+                <td>${o.payTime}</td>
+                <td>${o.deliveryTime}</td>
+                <td>${o.confirmTime}</td>
                 <td>
-                    <button class="btn btn-primary btn-xs detail-btn">查看详情</button>
-                    <c:if test="${o.status == 'waitDeliver'}">
-                        <a href="delivery?order.id=${o.id}">
-                            <button class="btn btn-primary btn-xs">发货</button>
+                    <button class="btn btn-primary btn|-xs detail-btn">查看详情</button>
+<%--                    判断是否付款并还没有发货的--%>
+                    <c:if test="${o.status== 'PENDING'}">
+                        <a href="shipments?orderTable.id=${o.id}">
+                            <button style="color: #FFFFFF" class="btn btn-primary btn-xs">发货</button>
                         </a>
                     </c:if>
                 </td>
@@ -62,12 +62,12 @@
                         <div class="panel-heading">订单详情</div>
                         <div class="panel-body">
                             <table class="table table-striped">
-                                <c:forEach items="${o.orderItems}" var="item" varStatus="vs">
+                                <c:forEach items="${o.orderItemList}" var="item" varStatus="vs">
                                 <tr>
-                                    <td><img width="40px" height="40px" src="${productImgDir}${item.product.image.path}"></td>
+                                    <td><img width="40px" height="40px" src="${item.coverImage.urlImage}"></td>
                                     <td>${item.product.name}</td>
-                                    <td>${item.number}个</td>
-                                    <td>单价${item.product.nowPrice}元</td>
+                                    <td>${item.count}个</td>
+                                    <td>单价${item.product.NPrice}元</td>
                                 </tr>
                                 </c:forEach>
                             </table>

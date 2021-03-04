@@ -8,6 +8,7 @@ import com.duyi.tmall.dao.base.BaseUserDao;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -17,7 +18,7 @@ import javax.persistence.criteria.Root;
  * @author 实现用户dao的方法
  */
 @Repository
-public class UserImpDao extends BeanDaoImp<User> implements BaseUserDao {
+public class UserImpDao extends BeanDaoImpl<User> implements BaseUserDao {
 
     public User get(String name) {
         Session session = getSession();
@@ -25,6 +26,24 @@ public class UserImpDao extends BeanDaoImp<User> implements BaseUserDao {
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);
         query.where(builder.equal(root.get("name"),name));
-        return session.createQuery(query).getSingleResult();
+        try {
+            return  session.createQuery(query).getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
+
+    }
+
+    public User sendEmail(String email) {
+        Session session = getSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.where(builder.equal(root.get("email"),email));
+        try {
+            return  session.createQuery(query).getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
 }

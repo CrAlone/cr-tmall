@@ -2,11 +2,14 @@ package com.duyi.tmall.bean;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 订单表
@@ -33,6 +36,12 @@ public class OrderTable implements Serializable {
     @ManyToOne
     @JoinColumn(name = "uid")
     private User user;
+    /**
+     * 级联保存
+     */
+    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "orderTable")
+    @Where(clause = "del != 1")
+    private List<OrderItem> orderItemList = new ArrayList<OrderItem>();
     /**
      * 收货地址
      */
@@ -89,8 +98,14 @@ public class OrderTable implements Serializable {
      */
     @Column(name = "confirm_time")
     private Date confirmTime;
+    /**
+     * 商品数量
+     */
+    @Transient
+    private int orderItemCount;
     public enum Status{
-        SENT,UNSENT,ARRIVE;
+        //PAID 已支付，CONFIRM确认收货,ACCOMPLISH完成,待发货PENDING,UNPAID未支付,SHIPPED已发货
+            PAID,CONFIRM,ACCOMPLISH,PENDING,UNPAID,SHIPPED
     }
 
 }
